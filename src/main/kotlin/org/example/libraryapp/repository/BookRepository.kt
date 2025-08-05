@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository
 @Repository
 interface BookRepository: JpaRepository<Book, Long> {
     fun findBookByIdOrIdNull(id: Long): Book?
-    fun findByTitleStartingWithIgnorCase(title: String, pageable: Pageable): Page<Book>
+    fun findByTitleStartingWithIgnoreCase(title: String, pageable: Pageable): Page<Book>
 }

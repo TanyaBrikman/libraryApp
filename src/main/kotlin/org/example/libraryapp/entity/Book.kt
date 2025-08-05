@@ -9,7 +9,7 @@ import jakarta.validation.constraints.Size
 class Book(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    var id: Long,
+    var id: Long?,
 
     @Column(name = "title", nullable = false)
     var title: String,
