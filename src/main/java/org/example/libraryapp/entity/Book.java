@@ -3,7 +3,10 @@ package org.example.libraryapp.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 
 @Entity
@@ -33,4 +36,19 @@ public class Book {
 
     @Column(name = "access", nullable = false)
     Boolean access = true;
+
+    public Book(String title, String author, Integer yearOfPublication, String isbn) {
+        this.title = title;
+        this.author = author;
+        this.yearOfPublication = yearOfPublication;
+        this.isbn = isbn;
+        this.access = true;
+    }
+
+    public Book(String title, String author, Integer yearOfPublication ) {
+        this.yearOfPublication = yearOfPublication;
+        this.author = author;
+        this.title = title;
+        this.access = true;
+    }
 }

@@ -4,13 +4,13 @@ import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
 @Getter
-public class BookNotFoundException extends BaseException {
+public class ReaderNotFoundException extends BaseException {
 
     final Long id;
 
-    public BookNotFoundException(Long id) {
+    public ReaderNotFoundException(Long id) {
         super(HttpStatus.NOT_FOUND,
-                new ApiError(404, "NOT_FOUND", "Book with id " + id + " not found"));
+                new ApiError(404, "NOT_FOUND", "Reader with id " + id + " not found"));
         this.id = id;
     }
 }

@@ -4,18 +4,19 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
-import org.example.libraryapp.dto.BookDTO;
+import org.example.libraryapp.dto.bookDTO.CreateBookDTO;
+import org.example.libraryapp.dto.bookDTO.UpdateBookDTO;
 import org.example.libraryapp.entity.Book;
 import org.example.libraryapp.service.BookService;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @Controller
 @RequestMapping("api/books")
 @ResponseBody
-@RequiredArgsConstructor
 @Tag(
         name = "Books",
         description = "All methods for working with books"
@@ -23,6 +24,10 @@ import org.springframework.web.bind.annotation.*;
 class BookController {
 
     private final BookService bookService;
+
+    BookController(BookService bookService) {
+        this.bookService = bookService;
+    }
 
     @GetMapping()
     @Operation(summary = "Get all books")
@@ -59,8 +64,10 @@ class BookController {
 
     @PostMapping()
     @Operation(summary = "Create a book")
-    Book addBook(@RequestBody Book book) {
-        return bookService.addBook(book);
+    Book createBook(
+            @RequestBody
+            @Valid CreateBookDTO bookDTO) {
+        return bookService.createBook(bookDTO);
     }
 
     @PutMapping("/{id}")
@@ -69,9 +76,9 @@ class BookController {
             @Parameter(description = "Book id")
             @PathVariable Long id,
             @RequestBody
-            @Valid BookDTO bookDTO
+            @Valid UpdateBookDTO updateBookDTO
     ) {
-        bookService.updateBook(id, bookDTO);
+        bookService.updateBook(id, updateBookDTO);
     }
 
     @DeleteMapping("/{id}")
