@@ -12,8 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
 @Controller
 @RequestMapping("api/books")
 @ResponseBody
@@ -21,7 +19,7 @@ import java.util.Optional;
         name = "Books",
         description = "All methods for working with books"
 )
-class BookController {
+public class BookController {
 
     private final BookService bookService;
 
@@ -31,22 +29,22 @@ class BookController {
 
     @GetMapping()
     @Operation(summary = "Get all books")
-    public Page<Book> findAllBooks(
+    public Page<Book> getAllBooks(
             @Parameter(description = "Filter page", required = true)
             @RequestParam(defaultValue = "0") Integer page,
             @Parameter(description = "Filter size", required = true)
             @RequestParam(defaultValue = "10") Integer size
     ) {
-        return bookService.findAllBook(page, size);
+        return bookService.getAllBook(page, size);
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "Get a book by id")
-    public Book findBookById(
+    public Book getBookById(
             @Parameter(description = "Book id")
             @PathVariable Long id
     ) {
-        return bookService.findBookById(id);
+        return bookService.getBookById(id);
     }
 
     @GetMapping("/search")

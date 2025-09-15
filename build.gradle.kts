@@ -29,6 +29,7 @@ dependencies {
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0")
     implementation ("jakarta.validation:jakarta.validation-api")
     implementation ("org.hibernate.validator:hibernate-validator")
+    implementation("org.liquibase:liquibase-core")
     runtimeOnly("org.postgresql:postgresql")
     compileOnly("org.projectlombok:lombok:1.18.30")
     annotationProcessor("org.projectlombok:lombok:1.18.30")

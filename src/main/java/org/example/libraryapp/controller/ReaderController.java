@@ -22,13 +22,13 @@ public class ReaderController {
     }
 
     @GetMapping()
-    public List<Reader> findAllReaders() {
-        return readerService.findAllReaders();
+    public List<Reader> getAllReaders() {
+        return readerService.getAllReaders();
     }
 
     @GetMapping("/{id}")
-    public Reader findReaderById(@PathVariable Long id) {
-        return readerService.findReaderById(id);
+    public Reader getReaderById(@PathVariable Long id) {
+        return readerService.getReaderById(id);
     }
 
     @PostMapping

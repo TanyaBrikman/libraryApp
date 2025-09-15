@@ -13,33 +13,32 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-
 @RequiredArgsConstructor
 @Service
 public class BookService {
 
     private final BookRepository bookRepository;
 
-    public Page<Book> findAllBook(
-            Integer page,
-            Integer size
+    public Page<Book> getAllBook(
+            int page,
+            int size
     ) {
         return bookRepository.findAll(PageRequest.of(page, size));
     }
 
-    public Book findBookById(Long id) {
-        return bookRepository.findById(id) .orElseThrow(() -> new BookNotFoundException(id));
+    public Book getBookById(Long id) {
+        return bookRepository.getBookById(id)
+                .orElseThrow(() -> new BookNotFoundException(id));
 
     }
 
     @Transactional
     public Book createBook(CreateBookDTO createBookDTO) {
         return bookRepository.save(new Book(
-                createBookDTO.title(),
-                createBookDTO.author(),
-                createBookDTO.yearOfPublication(),
-                createBookDTO.isbn()
+                        createBookDTO.title(),
+                        createBookDTO.author(),
+                        createBookDTO.yearOfPublication(),
+                        createBookDTO.isbn()
                 )
         );
     }
@@ -49,7 +48,7 @@ public class BookService {
             Long id,
             UpdateBookDTO updateBookDTO
     ) {
-        Book book = bookRepository.findBookById(id)
+        Book book = bookRepository.getBookById(id)
                 .orElseThrow(() -> new BookNotFoundException(id));
 
         if (!book.getAccess()) {
@@ -77,16 +76,15 @@ public class BookService {
 
     @Transactional
     public void deleteBook(Long id) {
-        Book book = bookRepository.findBookById(id)
+        Book book = bookRepository.getBookById(id)
                 .orElseThrow(() -> new BookNotFoundException(id));
-
         book.setAccess(false);
     }
 
     public Page<Book> searchBooks(
             String title,
-            Integer page,
-            Integer size
+            int page,
+            int size
     ) {
         return bookRepository.findByTitleStartingWithIgnoreCase(title, PageRequest.of(page, size));
     }

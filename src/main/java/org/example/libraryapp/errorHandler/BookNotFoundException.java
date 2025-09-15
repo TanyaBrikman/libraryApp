@@ -10,7 +10,7 @@ public class BookNotFoundException extends BaseException {
 
     public BookNotFoundException(Long id) {
         super(HttpStatus.NOT_FOUND,
-                new ApiError(404, "NOT_FOUND", "Book with id " + id + " not found"));
+                new ApiError(404, "Not found", "Book with id " + id + " not found"));
         this.id = id;
     }
 }

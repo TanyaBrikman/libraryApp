@@ -1,10 +1,10 @@
 package org.example.libraryapp.service
 
 import org.assertj.core.api.Assertions.assertThat
-import org.example.libraryapp.dto.BookDTO
+import org.example.libraryapp.dto.bookDTO.CreateBookDTO
 import org.example.libraryapp.entity.Book
 import org.example.libraryapp.errorHandler.BookAccessDeniedException
-import org.example.libraryapp.errorHandler.BookArgumentException
+import org.example.libraryapp.errorHandler.ArgumentException
 import org.example.libraryapp.errorHandler.BookNotFoundException
 import org.example.libraryapp.repository.BookRepository
 import org.junit.jupiter.api.Test
@@ -47,7 +47,7 @@ class BookServiceUnitTests {
         `when`(bookRepository.findBookByIdOrIdNull(bookId)).thenReturn(testBook)
 
         //Вызов тестируемого метода и проверка результата
-        val result = bookService.findBookById(bookId)
+        val result = bookService.getBookById(bookId)
         assertThat(result).isNotNull()
         assertThat(result?.title).isEqualTo("Title")
         assertThat(result?.author).isEqualTo("Author")
@@ -63,7 +63,7 @@ class BookServiceUnitTests {
 
         //Действие и проверка
         assertThrows<BookNotFoundException> {
-            bookService.findBookById(bookId)
+            bookService.getBookById(bookId)
         }
 
         verify(bookRepository).findBookByIdOrIdNull(bookId)
@@ -75,7 +75,7 @@ class BookServiceUnitTests {
         `when` (bookRepository.findBookByIdOrIdNull(bookId)).thenThrow(BookAccessDeniedException(bookId))
 
         assertThrows<BookAccessDeniedException> {
-            bookService.findBookById(bookId)
+            bookService.getBookById(bookId)
         }
 
         verify(bookRepository).findBookByIdOrIdNull(bookId)
@@ -95,7 +95,7 @@ class BookServiceUnitTests {
             true
         )
 
-        val updateBook = BookDTO(
+        val updateBook = CreateBookDTO(
             bookId,
             "Title1",
             "Author1",
@@ -121,7 +121,7 @@ class BookServiceUnitTests {
 
         val bookId = 1L
 
-        val updateBook = BookDTO(
+        val updateBook = CreateBookDTO(
             bookId,
             " ",
             "  ",
@@ -129,9 +129,13 @@ class BookServiceUnitTests {
             null
         )
 
-        `when`(bookRepository.findBookByIdOrIdNull(bookId)).thenThrow(BookArgumentException("update not possible"))
+        `when`(bookRepository.findBookByIdOrIdNull(bookId)).thenThrow(
+            ArgumentException(
+                "update not possible"
+            )
+        )
 
-        assertThrows<BookArgumentException> {
+        assertThrows<ArgumentException> {
             bookService.updateBook(bookId, updateBook)
         }
 

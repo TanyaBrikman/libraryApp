@@ -10,7 +10,7 @@ public class ReaderNotFoundException extends BaseException {
 
     public ReaderNotFoundException(Long id) {
         super(HttpStatus.NOT_FOUND,
-                new ApiError(404, "NOT_FOUND", "Reader with id " + id + " not found"));
+                new ApiError(404, "Not found", "Reader with id " + id + " not found"));
         this.id = id;
     }
 }

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="2025-09-08_10-00" author="Tanya Brikman">
+        <createSequence
+                sequenceName="books_seq"
+                startValue="1"
+                incrementBy="50"/>
+
+        <createTable tableName="books">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="title" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="author" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="year_of_publication" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="isbn" type="varchar">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="access" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/v1/2025-09-08_10-00_create-book-table.xml
+  - include:
+      file: db/changelog/v1/2025-09-09_12-00_create-reader-table.xml
+  - include:
+      file: db/changelog/v1/2025-09-09_13-00_create-borrow-record-table.xml
+

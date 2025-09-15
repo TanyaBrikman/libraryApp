@@ -8,7 +8,7 @@ public class ArgumentException extends BaseException {
 
     public ArgumentException(String message) {
         super(HttpStatus.BAD_REQUEST,
-        new ApiError(400, "Bad Request", message));
+                new ApiError(400, "Bad Request", message));
 
         this.message = message;
     }

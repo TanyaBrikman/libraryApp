@@ -21,12 +21,12 @@ public class ReaderService {
         this.readerRepository = readerRepository;
     }
 
-    public List<Reader> findAllReaders() {
+    public List<Reader> getAllReaders() {
         return readerRepository.findAll();
     }
 
-    public Reader findReaderById(Long id) {
-        return readerRepository.findReaderById(id);
+    public Reader getReaderById(Long id) {
+        return readerRepository.getReaderById(id).orElseThrow(() -> new ReaderNotFoundException(id));
     }
 
     @Transactional
@@ -41,36 +41,32 @@ public class ReaderService {
 
     @Transactional
     public void updateReader(Long id, UpdateReaderDTO readerDTO) {
-        Reader reader = readerRepository.findReaderById(id);
+        Reader reader = readerRepository.getReaderById(id).orElseThrow(() -> new ReaderNotFoundException(id));
 
         Reader existingReader = readerRepository.findReaderByEmail(readerDTO.email());
 
-        if (reader != null) {
-            if (existingReader == null) {
-                if (readerDTO.email() != null) {
-                    if (!(readerDTO.email().trim().isEmpty())) {
-                        reader.setEmail(readerDTO.email());
-                    } else {
-                        throw new ArgumentException("Enter email");
-                    }
-                }
-            } else {
-                throw new ArgumentException("Email already exists");
-            }
-            if (readerDTO.name() != null) {
-                if (!(readerDTO.name().trim().isEmpty())) {
-                    reader.setName(readerDTO.name());
+        if (existingReader == null) {
+            if (readerDTO.email() != null) {
+                if (!(readerDTO.email().trim().isEmpty())) {
+                    reader.setEmail(readerDTO.email());
                 } else {
-                    throw new ArgumentException("Enter name");
+                    throw new ArgumentException("Enter email");
                 }
             }
         } else {
-            throw new ReaderNotFoundException(id);
+            throw new ArgumentException("Email already exists");
+        }
+        if (readerDTO.name() != null) {
+            if (!(readerDTO.name().trim().isEmpty())) {
+                reader.setName(readerDTO.name());
+            } else {
+                throw new ArgumentException("Enter name");
+            }
         }
     }
 
     @Transactional
-    public void deleteReader(@PathVariable Long id) {
+    public void deleteReader(Long id) {
         readerRepository.deleteById(id);
     }
 }

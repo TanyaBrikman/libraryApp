@@ -1,11 +1,9 @@
 package org.example.libraryapp.entity;
 
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.time.LocalDate;
+import java.time.Instant;
 
 @Getter
 @Setter
@@ -25,8 +23,19 @@ public class BorrowRecord {
     Reader reader;
 
     @Column(name = "borrow_date")
-    LocalDate borrowDate;
+   Instant borrowDate;
 
     @Column(name = "return_date")
-    LocalDate returnDate;
+    Instant returnDate;
+
+
+    public BorrowRecord(Book book, Reader reader) {
+        this.book = book;
+        this.reader = reader;
+        this.borrowDate = Instant.now();
+        this.returnDate = null;
+    }
+
+    public BorrowRecord() {
+    }
 }

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="2025-09-09_12-00" author="Tanya Brikman">
+        <createSequence
+                sequenceName="borrow_record_seq"
+                startValue="1"
+                incrementBy="50"/>
+
+        <createTable tableName="borrow_record">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="book_id" type="bigint" >
+                <constraints foreignKeyName="true"/>
+            </column>
+            <column name="reader_id" type="bigint">
+                <constraints foreignKeyName="true"/>
+            </column>
+            <column name="borrow_date" type="timestamptz">
+            </column>
+            <column name="return_date" type="timestamptz">
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

@@ -10,8 +10,6 @@ import java.util.Optional;
 
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long> {
-
     Page<Book> findByTitleStartingWithIgnoreCase(String title, Pageable pageable);
-
-    Optional<Book> findBookById(Long id);
+    Optional<Book> getBookById(Long id);
 }

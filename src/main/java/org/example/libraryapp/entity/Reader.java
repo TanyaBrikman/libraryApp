@@ -6,7 +6,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Getter
@@ -27,11 +30,11 @@ public class Reader {
     private String email;
 
     @Column(name = "date_of_registration", nullable = false)
-    private LocalDate dateOfRegistration;
+    private Instant dateOfRegistration;
 
     public Reader(String name, String email) {
         this.name = name;
         this.email = email;
-        this.dateOfRegistration = LocalDate.now();
+        this.dateOfRegistration = Instant.now();
     }
 }
